@@ -4,6 +4,7 @@ import { schema } from './schema'
 import { context } from './context'
 import JWT from 'jsonwebtoken'
 import * as dotenv from 'dotenv'
+import { execute } from './webhook'
 dotenv.config()
 const app = express()
 app.use(express.urlencoded())
@@ -47,6 +48,26 @@ const webhook = async (req: any, res: any) => {
 
 app.post('/authenticate', authenticate)
 app.get('/webhook', webhook)
+// Request Handler
+app.post('/MyMutation', async (req, res) => {
+  // get request input
+  const { object } = req.body.input
+
+  // run some business logic
+
+  // execute the Hasura operation
+  const { data, errors } = await execute({ object })
+
+  // if Hasura operation errors, then throw error
+  if (errors) {
+    return res.status(400).json(errors[0])
+  }
+
+  // success
+  return res.json({
+    ...data.insert_item_one,
+  })
+})
 
 app.use(
   '/graphql',

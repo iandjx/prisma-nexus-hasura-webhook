@@ -13,6 +13,12 @@ This projects adds webhook functionality for Hasura. To use ..
 - copy generated JWT token and use in hasura server console
 - make a graphql call
 
+I've also added an example of action-relationships
+- derive a new action in hasura
+- add a relationship to the table you derived the action from
+- update action type as necessary
+- code gen the webhook and paste to the api server 
+
 This example shows how to implement a **GraphQL server with TypeScript** with the following stack:
 
 - [**Express GraphQL**](https://github.com/graphql/express-graphql): Express middleware for GraphQL HTTP servers   
